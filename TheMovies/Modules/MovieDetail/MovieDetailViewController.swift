@@ -22,6 +22,7 @@ final class MovieDetailViewController: UIViewController {
     private let titleLabel = UILabel()
     private let metaLabel = UILabel()
     private let genreLabel = UILabel()
+    private let headerInfoStack = UIStackView.vertical(spacing: LayoutSpacing.extraSmall)
     private let segmentedControl = UISegmentedControl(items: MovieDetailTab.allCases.map(\.title))
 
     private let tabContainer = UIView()
@@ -78,6 +79,8 @@ final class MovieDetailViewController: UIViewController {
         genreLabel.textColor = .secondaryLabel
         genreLabel.numberOfLines = 0
 
+        headerInfoStack.addArrangedSubviews(titleLabel, metaLabel, genreLabel)
+
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(tabChanged), for: .valueChanged)
 
@@ -101,9 +104,7 @@ final class MovieDetailViewController: UIViewController {
             backdropImageView,
             gradientView,
             posterImageView,
-            titleLabel,
-            metaLabel,
-            genreLabel,
+            headerInfoStack,
             segmentedControl,
             tabContainer
         )
@@ -111,9 +112,7 @@ final class MovieDetailViewController: UIViewController {
         backdropImageView.useAutoLayout()
         gradientView.useAutoLayout()
         posterImageView.useAutoLayout()
-        titleLabel.useAutoLayout()
-        metaLabel.useAutoLayout()
-        genreLabel.useAutoLayout()
+        headerInfoStack.useAutoLayout()
         segmentedControl.useAutoLayout()
         tabContainer.useAutoLayout()
 
@@ -128,29 +127,24 @@ final class MovieDetailViewController: UIViewController {
         posterImageView.pinToSuperview(edges: [.left], padding: UIEdgeInsets(
             top: 0, left: LayoutSpacing.medium, bottom: 0, right: 0
         ))
-        posterImageView.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: -20).isActive = true
+        posterImageView.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: -24).isActive = true
 
-        titleLabel.pinBelow(backdropImageView, spacing: LayoutSpacing.large)
-        titleLabel.pinToSuperview(edges: [.left, .right], padding: UIEdgeInsets(
-            top: 0, left: LayoutSpacing.medium, bottom: 0, right: LayoutSpacing.medium
+        headerInfoStack.pinToTrailing(of: posterImageView, spacing: LayoutSpacing.medium)
+        headerInfoStack.pinToSuperview(edges: [.right], padding: UIEdgeInsets(
+            top: 0, left: 0, bottom: 0, right: LayoutSpacing.medium
         ))
+        headerInfoStack.topAnchor.constraint(equalTo: posterImageView.topAnchor).isActive = true
 
-        metaLabel.pinBelow(titleLabel, spacing: LayoutSpacing.extraSmall)
-        metaLabel.pinToSuperview(edges: [.left, .right], padding: UIEdgeInsets(
-            top: 0, left: LayoutSpacing.medium, bottom: 0, right: LayoutSpacing.medium
-        ))
-
-        genreLabel.pinBelow(metaLabel, spacing: LayoutSpacing.extraSmall)
-        genreLabel.pinToSuperview(edges: [.left, .right], padding: UIEdgeInsets(
-            top: 0, left: LayoutSpacing.medium, bottom: 0, right: LayoutSpacing.medium
-        ))
-
-        segmentedControl.pinBelow(genreLabel, spacing: LayoutSpacing.medium)
+        segmentedControl.pinBelow(headerInfoStack, spacing: LayoutSpacing.medium)
+        segmentedControl.topAnchor.constraint(
+            greaterThanOrEqualTo: posterImageView.bottomAnchor,
+            constant: LayoutSpacing.medium
+        ).isActive = true
         segmentedControl.pinToSuperview(edges: [.left, .right], padding: UIEdgeInsets(
             top: 0, left: LayoutSpacing.medium, bottom: 0, right: LayoutSpacing.medium
         ))
 
-        tabContainer.pinBelow(segmentedControl, spacing: LayoutSpacing.medium)
+        tabContainer.pinBelow(segmentedControl, spacing: LayoutSpacing.large)
         tabContainer.pinToSuperview(edges: [.left, .right, .bottom], padding: UIEdgeInsets(
             top: 0, left: LayoutSpacing.medium, bottom: LayoutSpacing.large, right: LayoutSpacing.medium
         ))
