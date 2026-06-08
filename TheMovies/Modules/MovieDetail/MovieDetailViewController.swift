@@ -26,6 +26,7 @@ final class MovieDetailViewController: UIViewController {
     private let segmentedControl = UISegmentedControl(items: MovieDetailTab.allCases.map(\.title))
 
     private let tabContainer = UIView()
+    private let tabContentStack = UIStackView.vertical()
     private let aboutStack = UIStackView.vertical(spacing: LayoutSpacing.medium)
     private let reviewsStack = UIStackView.vertical(spacing: LayoutSpacing.medium)
     private let reviewsFooter = UIActivityIndicatorView(style: .medium)
@@ -149,14 +150,9 @@ final class MovieDetailViewController: UIViewController {
             top: 0, left: LayoutSpacing.medium, bottom: LayoutSpacing.large, right: LayoutSpacing.medium
         ))
 
-        tabContainer.addSubviews(aboutStack, reviewsStack, youtubePlayerView)
-        aboutStack.useAutoLayout()
-        reviewsStack.useAutoLayout()
-        youtubePlayerView.useAutoLayout()
-
-        aboutStack.pinToSuperview()
-        reviewsStack.pinToSuperview()
-        youtubePlayerView.pinToSuperview()
+        tabContentStack.addArrangedSubviews(aboutStack, reviewsStack, youtubePlayerView)
+        tabContainer.addSubview(tabContentStack)
+        tabContentStack.pinToSuperview()
         youtubePlayerView.setAspectRatio(AppTheme.backdropAspectRatio)
 
         stateView.isHidden = true
@@ -221,6 +217,8 @@ final class MovieDetailViewController: UIViewController {
         label.text = text
         label.font = UIFont.preferredFont(forTextStyle: .headline).withWeight(.semibold)
         label.textColor = .label
+        label.numberOfLines = 0
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }
 
