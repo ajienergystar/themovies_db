@@ -114,7 +114,7 @@
 			buildPhases = (
 				A83A6FE62FD6955C00D2C540 /* Sources */,
 				A83A6FE72FD6955C00D2C540 /* Frameworks */,
-				A83A70202FD6A1B200D2C540 /* SwiftLint */,
+				A83A70202FD6A1B200D2C540 /* ShellScript */,
 				A83A6FE82FD6955C00D2C540 /* Resources */,
 			);
 			buildRules = (
@@ -126,6 +126,7 @@
 			);
 			name = TheMovies;
 			packageProductDependencies = (
+				A83A70312FD6B00000D2C540 /* Kingfisher */,
 			);
 			productName = TheMovies;
 			productReference = A83A6FEA2FD6955C00D2C540 /* TheMovies.app */;
@@ -213,6 +214,9 @@
 			productRefGroup = A83A6FEB2FD6955C00D2C540 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
+			packageReferences = (
+				A83A70302FD6B00000D2C540 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			targets = (
 				A83A6FE92FD6955C00D2C540 /* TheMovies */,
 				A83A6FFF2FD6956100D2C540 /* TheMoviesTests */,
@@ -245,6 +249,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A83A70202FD6A1B200D2C540 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.swiftlint.yml",
+				"$(SRCROOT)/TheMovies",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint >/dev/null 2>&1; then\n  swiftlint --config \"${SRCROOT}/.swiftlint.yml\" \"${SRCROOT}/TheMovies\" --reporter xcode || true\nelse\n  echo \"warning: SwiftLint is not installed. Run 'brew install swiftlint'.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A83A6FE62FD6955C00D2C540 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -269,24 +291,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		A83A70202FD6A1B200D2C540 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.swiftlint.yml",
-				"$(SRCROOT)/TheMovies",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint >/dev/null 2>&1; then swiftlint --config \\\"$SRCROOT/.swiftlint.yml\\\" --path \\\"$SRCROOT/TheMovies\\\" --reporter xcode || true; else echo \\\"warning: SwiftLint is not installed. Run 'brew install swiftlint'.\\\"; fi\\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXTargetDependency section */
 		A83A70022FD6956100D2C540 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -300,6 +304,25 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		A83A70302FD6B00000D2C540 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A83A70312FD6B00000D2C540 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A83A70302FD6B00000D2C540 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCBuildConfiguration section */
 		A83A70142FD6956100D2C540 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -312,7 +335,6 @@
 				INFOPLIST_FILE = TheMovies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -344,7 +366,6 @@
 				INFOPLIST_FILE = TheMovies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
