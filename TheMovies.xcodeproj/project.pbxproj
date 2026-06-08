@@ -114,6 +114,7 @@
 			buildPhases = (
 				A83A6FE62FD6955C00D2C540 /* Sources */,
 				A83A6FE72FD6955C00D2C540 /* Frameworks */,
+				A83A70202FD6A1B200D2C540 /* SwiftLint */,
 				A83A6FE82FD6955C00D2C540 /* Resources */,
 			);
 			buildRules = (
@@ -267,6 +268,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A83A70202FD6A1B200D2C540 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.swiftlint.yml",
+				"$(SRCROOT)/TheMovies",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint >/dev/null 2>&1; then swiftlint --config \\\"$SRCROOT/.swiftlint.yml\\\" --path \\\"$SRCROOT/TheMovies\\\" --reporter xcode || true; else echo \\\"warning: SwiftLint is not installed. Run 'brew install swiftlint'.\\\"; fi\\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		A83A70022FD6956100D2C540 /* PBXTargetDependency */ = {

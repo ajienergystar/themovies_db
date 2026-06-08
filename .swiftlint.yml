@@ -1,0 +1,11 @@
+disabled_rules:
+  - todo
+  - function_body_length
+  - type_body_length
+
+reporter: xcode
+
+# Prevent build failures due to lint violations by default.
+warning_threshold: 999999
+error_threshold: 999999
+
