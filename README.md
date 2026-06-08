@@ -1,66 +1,66 @@
 # themovies_db
 
-Aplikasi iOS native yang menampilkan informasi film menggunakan data dari [The Movie Database (TMDb) API](https://www.themoviedb.org/documentation/api). Pengguna dapat menjelajahi genre resmi, menemukan film berdasarkan genre, melihat detail film, membaca ulasan pengguna, memutar trailer YouTube langsung di dalam aplikasi, serta men-scroll daftar film dan ulasan tanpa batas melalui pagination.
+A native iOS application that displays movie information using data from [The Movie Database (TMDb) API](https://www.themoviedb.org/documentation/api). Users can browse official genres, discover films by genre, view movie details, read user reviews, play YouTube trailers directly in the app, and scroll endlessly through movie and review lists via pagination.
 
 **Repository:** [https://github.com/ajienergystar/themovies_db](https://github.com/ajienergystar/themovies_db)
 
 ---
 
-## Daftar Isi
+## Table of Contents
 
-- [Tentang Projek](#tentang-projek)
-- [Fitur Utama](#fitur-utama)
-- [Teknologi yang Digunakan](#teknologi-yang-digunakan)
-- [Arsitektur](#arsitektur)
-- [Struktur Projek](#struktur-projek)
-- [Alur Aplikasi](#alur-aplikasi)
-- [Prasyarat](#prasyarat)
-- [Tutorial: Dari Clone hingga Menjalankan](#tutorial-dari-clone-hingga-menjalankan)
-- [Konfigurasi API Key TMDb](#konfigurasi-api-key-tmdb)
-- [Menjalankan Aplikasi](#menjalankan-aplikasi)
-- [Menjalankan Unit Test](#menjalankan-unit-test)
-- [Endpoint API yang Digunakan](#endpoint-api-yang-digunakan)
-- [Penanganan Error](#penanganan-error)
-- [Lisensi](#lisensi)
-
----
-
-## Tentang Projek
-
-**themovies_db** adalah aplikasi mobile iOS yang dibangun dengan **Swift** dan **UIKit**. Aplikasi ini mengonsumsi REST API TMDb untuk menampilkan katalog film secara real-time, lengkap dengan poster, backdrop, metadata film, ulasan pengguna, dan trailer video.
-
-Projek ini dirancang sebagai contoh implementasi aplikasi iOS modern dengan:
-
-- Arsitektur **VIPER** (View, Interactor, Presenter, Entity, Router) untuk pemisahan tanggung jawab yang jelas
-- Networking berbasis **async/await** dengan `URLSession`
-- UI programmatic tanpa Storyboard untuk layar utama (kecuali Launch Screen)
-- Komponen UI yang dapat digunakan kembali (reusable components)
-- Penanganan state loading, empty, dan error yang konsisten di seluruh layar
-
-Aplikasi mendukung **iOS 16.6** ke atas dan dioptimalkan untuk iPhone.
+- [About the Project](#about-the-project)
+- [Key Features](#key-features)
+- [Technologies Used](#technologies-used)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Application Flow](#application-flow)
+- [Prerequisites](#prerequisites)
+- [Tutorial: From Clone to Running](#tutorial-from-clone-to-running)
+- [TMDb API Key Configuration](#tmdb-api-key-configuration)
+- [Running the Application](#running-the-application)
+- [Running Unit Tests](#running-unit-tests)
+- [API Endpoints Used](#api-endpoints-used)
+- [Error Handling](#error-handling)
+- [License](#license)
 
 ---
 
-## Fitur Utama
+## About the Project
 
-| Fitur | Deskripsi |
-|-------|-----------|
-| **Daftar Genre** | Menampilkan seluruh genre film resmi dari TMDb dalam tampilan grid |
-| **Discover Film per Genre** | Menampilkan daftar film berdasarkan genre yang dipilih pengguna |
-| **Detail Film** | Informasi lengkap: judul, poster, backdrop, rating, tanggal rilis, durasi, genre, dan sinopsis |
-| **Tab About & Reviews** | Dua tab pada halaman detail: informasi film dan daftar ulasan pengguna |
-| **Trailer YouTube** | Memutar trailer resmi film langsung di dalam aplikasi via `WKWebView` embed |
-| **Infinite Scroll** | Pagination otomatis saat pengguna scroll mendekati akhir daftar film maupun ulasan |
-| **State Management** | Tampilan loading, empty state, dan error dengan tombol retry di setiap layar |
-| **Caching Gambar** | Poster dan backdrop di-cache menggunakan library Kingfisher |
+**themovies_db** is a native iOS mobile application built with **Swift** and **UIKit**. It consumes the TMDb REST API to display a real-time movie catalog, complete with posters, backdrops, movie metadata, user reviews, and video trailers.
+
+This project is designed as an example of a modern iOS application with:
+
+- **VIPER** architecture (View, Interactor, Presenter, Entity, Router) for clear separation of concerns
+- **async/await** networking with `URLSession`
+- Programmatic UI without Storyboards for main screens (except Launch Screen)
+- Reusable UI components
+- Consistent loading, empty, and error state handling across all screens
+
+The app supports **iOS 16.6** and above and is optimized for iPhone.
 
 ---
 
-## Teknologi yang Digunakan
+## Key Features
 
-| Kategori | Teknologi |
-|----------|-----------|
-| Bahasa | Swift 5 |
+| Feature | Description |
+|---------|-------------|
+| **Genre List** | Displays all official TMDb movie genres in a grid layout |
+| **Discover Movies by Genre** | Shows a list of movies based on the user's selected genre |
+| **Movie Detail** | Full information: title, poster, backdrop, rating, release date, runtime, genres, and overview |
+| **About & Reviews Tabs** | Two tabs on the detail page: movie information and user reviews |
+| **YouTube Trailer** | Plays official movie trailers directly in the app via `WKWebView` embed |
+| **Infinite Scroll** | Automatic pagination when the user scrolls near the end of movie or review lists |
+| **State Management** | Loading, empty state, and error views with a retry button on every screen |
+| **Image Caching** | Posters and backdrops are cached using the Kingfisher library |
+
+---
+
+## Technologies Used
+
+| Category | Technology |
+|----------|------------|
+| Language | Swift 5 |
 | UI Framework | UIKit (programmatic UI) |
 | Minimum iOS | 16.6 |
 | Networking | URLSession + async/await |
@@ -72,9 +72,9 @@ Aplikasi mendukung **iOS 16.6** ke atas dan dioptimalkan untuk iPhone.
 
 ---
 
-## Arsitektur
+## Architecture
 
-Aplikasi menggunakan pola **VIPER** dengan tiga modul utama:
+The application uses the **VIPER** pattern with three main modules:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -85,25 +85,25 @@ Aplikasi menggunakan pola **VIPER** dengan tiga modul utama:
 └──────────┴───────────┴────────────┴──────────┴──────────┘
 ```
 
-### Modul Aplikasi
+### Application Modules
 
-1. **GenreList** — Layar awal yang menampilkan daftar genre film
-2. **MovieList** — Daftar film berdasarkan genre terpilih (dengan pagination)
-3. **MovieDetail** — Detail film, trailer YouTube, dan ulasan (dengan pagination)
+1. **GenreList** — Initial screen displaying the list of movie genres
+2. **MovieList** — Movie list for the selected genre (with pagination)
+3. **MovieDetail** — Movie details, YouTube trailer, and reviews (with pagination)
 
-Setiap modul memiliki file kontrak (protocol) sendiri untuk memudahkan testing dan dependency injection.
+Each module has its own contract (protocol) files to facilitate testing and dependency injection.
 
-### Layer Tambahan
+### Additional Layers
 
-- **Core/Network** — `APIClient`, `TMDBEndpoint`, dan protokol networking
-- **Core/Error** — `AppError` enum dengan pesan error yang user-friendly
-- **Core/Constants** — Konfigurasi base URL dan API key TMDb
-- **Components** — Reusable views (`StateView`, `MoviePosterCell`, `ReviewCardView`, dll.)
-- **Models** — Struct Codable untuk response API (`Genre`, `Movie`, `MovieDetail`, `Review`, `Video`)
+- **Core/Network** — `APIClient`, `TMDBEndpoint`, and networking protocols
+- **Core/Error** — `AppError` enum with user-friendly error messages
+- **Core/Constants** — TMDb base URL and API key configuration
+- **Components** — Reusable views (`StateView`, `MoviePosterCell`, `ReviewCardView`, etc.)
+- **Models** — Codable structs for API responses (`Genre`, `Movie`, `MovieDetail`, `Review`, `Video`)
 
 ---
 
-## Struktur Projek
+## Project Structure
 
 ```
 themovies_db/
@@ -141,97 +141,97 @@ themovies_db/
 
 ---
 
-## Alur Aplikasi
+## Application Flow
 
 ```
 Genre List  →  Movie List (per genre)  →  Movie Detail
-                                              ├── Tab About (sinopsis + trailer)
-                                              └── Tab Reviews (ulasan + pagination)
+                                              ├── About Tab (overview + trailer)
+                                              └── Reviews Tab (reviews + pagination)
 ```
 
-1. Saat aplikasi dibuka, `SceneDelegate` memuat modul **GenreList** sebagai root view controller
-2. Pengguna memilih genre → navigasi ke **MovieList**
-3. Pengguna memilih film → navigasi ke **MovieDetail**
-4. Di halaman detail, pengguna dapat beralih antara tab About dan Reviews, serta memutar trailer YouTube
+1. When the app launches, `SceneDelegate` loads the **GenreList** module as the root view controller
+2. User selects a genre → navigates to **MovieList**
+3. User selects a movie → navigates to **MovieDetail**
+4. On the detail page, the user can switch between About and Reviews tabs, and play the YouTube trailer
 
 ---
 
-## Prasyarat
+## Prerequisites
 
-Sebelum memulai, pastikan perangkat Anda memenuhi persyaratan berikut:
+Before getting started, ensure your machine meets the following requirements:
 
-| Persyaratan | Versi Minimum |
-|-------------|---------------|
-| macOS | Ventura 13.0 atau lebih baru |
-| Xcode | 15.0 atau lebih baru |
-| iOS Simulator / Device | iOS 16.6 atau lebih baru |
-| Akun TMDb | Gratis — untuk mendapatkan API Key |
-| Git | Versi terbaru |
-| Koneksi Internet | Diperlukan saat menjalankan aplikasi |
+| Requirement | Minimum Version |
+|-------------|-----------------|
+| macOS | Ventura 13.0 or later |
+| Xcode | 15.0 or later |
+| iOS Simulator / Device | iOS 16.6 or later |
+| TMDb Account | Free — required to obtain an API Key |
+| Git | Latest version |
+| Internet Connection | Required when running the application |
 
 ---
 
-## Tutorial: Dari Clone hingga Menjalankan
+## Tutorial: From Clone to Running
 
-### Langkah 1 — Clone Repository
+### Step 1 — Clone the Repository
 
-Buka Terminal dan jalankan perintah berikut:
+Open Terminal and run the following commands:
 
 ```bash
 git clone https://github.com/ajienergystar/themovies_db.git
 cd themovies_db
 ```
 
-### Langkah 2 — Buka Projek di Xcode
+### Step 2 — Open the Project in Xcode
 
 ```bash
 open TheMovies.xcodeproj
 ```
 
-Atau buka Xcode secara manual, lalu pilih **File → Open** dan arahkan ke file `TheMovies.xcodeproj`.
+Or open Xcode manually, then select **File → Open** and navigate to `TheMovies.xcodeproj`.
 
-### Langkah 3 — Resolve Swift Package Dependencies
+### Step 3 — Resolve Swift Package Dependencies
 
-Saat pertama kali membuka projek, Xcode akan otomatis mengunduh dependensi Swift Package Manager (Kingfisher). Jika belum terunduh:
+When you first open the project, Xcode will automatically download Swift Package Manager dependencies (Kingfisher). If they have not been downloaded yet:
 
-1. Di Xcode, buka menu **File → Packages → Resolve Package Versions**
-2. Tunggu hingga proses selesai (indikator progress di bagian atas Xcode)
+1. In Xcode, go to **File → Packages → Resolve Package Versions**
+2. Wait for the process to complete (progress indicator at the top of Xcode)
 
-### Langkah 4 — Konfigurasi API Key TMDb
+### Step 4 — Configure TMDb API Key
 
-Lihat bagian [Konfigurasi API Key TMDb](#konfigurasi-api-key-tmdb) di bawah.
+See the [TMDb API Key Configuration](#tmdb-api-key-configuration) section below.
 
-### Langkah 5 — Pilih Target & Simulator
+### Step 5 — Select Target & Simulator
 
-1. Di toolbar Xcode, pastikan scheme **TheMovies** terpilih
-2. Pilih simulator iPhone (misalnya **iPhone 16**) atau perangkat fisik yang terhubung
+1. In the Xcode toolbar, ensure the **TheMovies** scheme is selected
+2. Choose an iPhone simulator (e.g. **iPhone 16**) or a connected physical device
 
-### Langkah 6 — Build & Run
+### Step 6 — Build & Run
 
-Tekan **⌘ + R** atau klik tombol **Run** (▶) di toolbar Xcode.
+Press **⌘ + R** or click the **Run** (▶) button in the Xcode toolbar.
 
-Aplikasi akan di-build dan diluncurkan di simulator atau perangkat yang dipilih.
+The app will be built and launched on the selected simulator or device.
 
 ---
 
-## Konfigurasi API Key TMDb
+## TMDb API Key Configuration
 
-Aplikasi memerlukan API Key dari TMDb untuk mengakses data film.
+The application requires a TMDb API Key to access movie data.
 
-### Mendapatkan API Key
+### Obtaining an API Key
 
-1. Buat akun gratis di [https://www.themoviedb.org/signup](https://www.themoviedb.org/signup)
-2. Login, lalu buka **Settings → API** di dashboard akun Anda
-3. Ajukan permohonan API Key (pilih tipe **Developer**)
-4. Salin **API Key (v3 auth)** yang diberikan
+1. Create a free account at [https://www.themoviedb.org/signup](https://www.themoviedb.org/signup)
+2. Log in, then go to **Settings → API** in your account dashboard
+3. Request an API Key (select the **Developer** type)
+4. Copy the provided **API Key (v3 auth)**
 
-### Memasang API Key ke Projek
+### Adding the API Key to the Project
 
-Buka file `TheMovies/Core/Constants/TMDBConstants.swift` dan ganti nilai `apiKey` dengan API Key Anda:
+Open `TheMovies/Core/Constants/TMDBConstants.swift` and replace the `apiKey` value with your API Key:
 
 ```swift
 enum TMDBConstants {
-    static let apiKey = "MASUKKAN_API_KEY_ANDA_DI_SINI"
+    static let apiKey = "YOUR_API_KEY_HERE"
     static let baseURL = "https://api.themoviedb.org/3"
     static let imageBaseURL = "https://image.tmdb.org/t/p/w500"
     static let backdropBaseURL = "https://image.tmdb.org/t/p/w780"
@@ -239,30 +239,30 @@ enum TMDBConstants {
 }
 ```
 
-> **Catatan keamanan:** Jangan commit API Key pribadi ke repository publik. Untuk pengembangan lanjutan, pertimbangkan memindahkan key ke file konfigurasi yang di-ignore (misalnya `Config.xcconfig` atau `Secrets.plist` yang sudah tercantum di `.gitignore`).
+> **Security note:** Do not commit your personal API Key to a public repository. For further development, consider moving the key to an ignored configuration file (e.g. `Config.xcconfig` or `Secrets.plist` listed in `.gitignore`).
 
 ---
 
-## Menjalankan Aplikasi
+## Running the Application
 
-### Via Xcode (Disarankan)
+### Via Xcode (Recommended)
 
 ```bash
-# Buka projek
+# Open the project
 open TheMovies.xcodeproj
 
-# Build & Run: tekan ⌘ + R
+# Build & Run: press ⌘ + R
 ```
 
 ### Via Command Line
 
 ```bash
-# Build untuk simulator
+# Build for simulator
 xcodebuild -scheme TheMovies \
   -destination 'platform=iOS Simulator,name=iPhone 16' \
   build
 
-# Build dan jalankan di simulator
+# Build and run on simulator
 xcodebuild -scheme TheMovies \
   -destination 'platform=iOS Simulator,name=iPhone 16' \
   -derivedDataPath build \
@@ -273,15 +273,15 @@ xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/TheMovies
 xcrun simctl launch booted Owner.TheMovies
 ```
 
-> Ganti `iPhone 16` dengan nama simulator yang tersedia di mesin Anda. Cek daftar simulator dengan: `xcrun simctl list devices available`
+> Replace `iPhone 16` with a simulator name available on your machine. List available simulators with: `xcrun simctl list devices available`
 
 ---
 
-## Menjalankan Unit Test
+## Running Unit Tests
 
 ### Via Xcode
 
-Tekan **⌘ + U** untuk menjalankan semua test, atau klik kanan pada target test dan pilih **Run**.
+Press **⌘ + U** to run all tests, or right-click the test target and select **Run**.
 
 ### Via Command Line
 
@@ -293,42 +293,42 @@ xcodebuild test \
 
 ---
 
-## Endpoint API yang Digunakan
+## API Endpoints Used
 
-| Endpoint TMDb | Digunakan di | Fungsi |
-|---------------|--------------|--------|
-| `GET /genre/movie/list` | GenreList | Mengambil daftar genre film |
-| `GET /discover/movie` | MovieList | Mencari film berdasarkan genre (dengan pagination) |
-| `GET /movie/{id}` | MovieDetail | Detail lengkap sebuah film |
-| `GET /movie/{id}/reviews` | MovieDetail | Ulasan pengguna untuk film (dengan pagination) |
-| `GET /movie/{id}/videos` | MovieDetail | Video/trailer yang tersedia untuk film |
+| TMDb Endpoint | Used In | Purpose |
+|---------------|---------|---------|
+| `GET /genre/movie/list` | GenreList | Fetch the list of movie genres |
+| `GET /discover/movie` | MovieList | Discover movies by genre (with pagination) |
+| `GET /movie/{id}` | MovieDetail | Full details for a movie |
+| `GET /movie/{id}/reviews` | MovieDetail | User reviews for a movie (with pagination) |
+| `GET /movie/{id}/videos` | MovieDetail | Available videos/trailers for a movie |
 
-Semua request menyertakan parameter `api_key` dan menggunakan base URL `https://api.themoviedb.org/3`.
-
----
-
-## Penanganan Error
-
-Aplikasi menangani berbagai skenario error melalui enum `AppError`:
-
-| Error | Pesan ke Pengguna |
-|-------|-------------------|
-| `networkUnavailable` | Tidak ada koneksi internet |
-| `invalidResponse` | Response server tidak valid |
-| `decodingFailed` | Gagal memproses data dari server |
-| `serverError(statusCode)` | Error server dengan kode HTTP |
-| `emptyData` | Tidak ada data tersedia |
-
-Setiap layar menampilkan `StateView` dengan tombol **Retry** saat terjadi error, sehingga pengguna dapat mencoba memuat ulang data tanpa harus keluar dari layar.
+All requests include the `api_key` parameter and use the base URL `https://api.themoviedb.org/3`.
 
 ---
 
-## Lisensi
+## Error Handling
 
-Projek ini dibuat untuk keperluan pembelajaran dan demonstrasi integrasi TMDb API pada aplikasi iOS native.
+The application handles various error scenarios through the `AppError` enum:
+
+| Error | User Message |
+|-------|--------------|
+| `networkUnavailable` | No internet connection |
+| `invalidResponse` | Invalid server response |
+| `decodingFailed` | Failed to process data from the server |
+| `serverError(statusCode)` | Server error with HTTP status code |
+| `emptyData` | No data available |
+
+Every screen displays a `StateView` with a **Retry** button when an error occurs, so users can reload data without leaving the screen.
 
 ---
 
-## Kontributor
+## License
 
-Dikembangkan oleh **Aji Prakosa** — [GitHub: ajienergystar](https://github.com/ajienergystar)
+This project is created for educational purposes and as a demonstration of TMDb API integration in a native iOS application.
+
+---
+
+## Contributors
+
+Developed by **Aji Prakosa** — [GitHub: ajienergystar](https://github.com/ajienergystar)
