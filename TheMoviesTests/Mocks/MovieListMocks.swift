@@ -59,10 +59,6 @@ final class MovieListRouterSpy: MovieListRouterProtocol {
 
     private(set) var navigatedMovieID: Int?
 
-    static func createModule(genre: Genre) -> UIViewController {
-        UIViewController()
-    }
-
     func navigateToMovieDetail(movieID: Int) {
         navigatedMovieID = movieID
     }

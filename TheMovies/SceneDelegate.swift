@@ -13,9 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let moduleFactory = appDelegate.moduleFactory else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = GenreListRouter.createModule()
+        window.rootViewController = moduleFactory.makeGenreListModule()
         window.makeKeyAndVisible()
         self.window = window
     }

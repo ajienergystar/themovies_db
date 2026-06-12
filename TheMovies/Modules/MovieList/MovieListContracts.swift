@@ -35,6 +35,5 @@ protocol MovieListInteractorOutputProtocol: AnyObject {
 }
 
 protocol MovieListRouterProtocol: AnyObject {
-    static func createModule(genre: Genre) -> UIViewController
     func navigateToMovieDetail(movieID: Int)
 }

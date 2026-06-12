@@ -39,6 +39,5 @@ protocol GenreListInteractorOutputProtocol: AnyObject {
 // MARK: - Router
 
 protocol GenreListRouterProtocol: AnyObject {
-    static func createModule() -> UINavigationController
     func navigateToMovieList(genre: Genre)
 }

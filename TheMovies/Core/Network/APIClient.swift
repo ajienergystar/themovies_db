@@ -9,8 +9,6 @@ import Foundation
 
 final class APIClient: APIClientProtocol {
 
-    static let shared = APIClient()
-
     private let session: URLSession
     private let decoder: JSONDecoder
 

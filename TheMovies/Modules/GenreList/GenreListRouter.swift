@@ -11,25 +11,14 @@ final class GenreListRouter: GenreListRouterProtocol {
 
     weak var viewController: UIViewController?
 
-    static func createModule() -> UINavigationController {
-        let view = GenreListViewController()
-        let presenter = GenreListPresenter()
-        let interactor = GenreListInteractor()
-        let router = GenreListRouter()
+    private let moduleFactory: ModuleFactory
 
-        view.presenter = presenter
-        presenter.view = view
-        presenter.interactor = interactor
-        presenter.router = router
-        interactor.output = presenter
-        router.viewController = view
-
-        let navigationController = UINavigationController(rootViewController: view)
-        return navigationController
+    init(moduleFactory: ModuleFactory) {
+        self.moduleFactory = moduleFactory
     }
 
     func navigateToMovieList(genre: Genre) {
-        let movieListVC = MovieListRouter.createModule(genre: genre)
+        let movieListVC = moduleFactory.makeMovieListModule(genre: genre)
         viewController?.navigationController?.pushViewController(movieListVC, animated: true)
     }
 }

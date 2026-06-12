@@ -59,5 +59,4 @@ enum MovieDetailErrorContext {
 }
 
 protocol MovieDetailRouterProtocol: AnyObject {
-    static func createModule(movieID: Int) -> UIViewController
 }

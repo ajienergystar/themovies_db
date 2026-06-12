@@ -10,10 +10,13 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    private(set) var dependencyContainer: DependencyContainer!
+    private(set) var moduleFactory: ModuleFactory!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let container = DependencyContainer.makeDefault()
+        dependencyContainer = container
+        moduleFactory = ModuleFactory(dependencies: container)
         return true
     }
 

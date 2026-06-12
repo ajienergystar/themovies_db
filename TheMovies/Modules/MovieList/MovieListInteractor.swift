@@ -13,7 +13,7 @@ final class MovieListInteractor: MovieListInteractorInputProtocol {
 
     private let apiClient: APIClientProtocol
 
-    init(apiClient: APIClientProtocol = APIClient.shared) {
+    init(apiClient: APIClientProtocol) {
         self.apiClient = apiClient
     }
 

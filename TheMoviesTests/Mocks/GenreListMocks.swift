@@ -44,10 +44,6 @@ final class GenreListRouterSpy: GenreListRouterProtocol {
 
     private(set) var navigatedGenre: Genre?
 
-    static func createModule() -> UINavigationController {
-        UINavigationController()
-    }
-
     func navigateToMovieList(genre: Genre) {
         navigatedGenre = genre
     }
